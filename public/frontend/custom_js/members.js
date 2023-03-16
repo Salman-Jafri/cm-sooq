@@ -499,13 +499,15 @@ $(document).ready(function(e){
 		if(errors==0)
 		{
 			let form_data = new FormData();
+
 			let member_email = $('#member_email').val();
 			let member_contact2 = $('#member_contact2').val();
 			let member_location = $('#member_location').val();
 			let member_description = $('#member_description').val();
 			let banner_image  = $('#banner-img')[0].files.length;
 			let profile_image = $('#profile_image')[0].files.length;
-			
+
+			form_data.append('_token',$('input[name="_token"]').val());
 			form_data.append('member_name',member_name.val());
 			form_data.append('member_contact',member_contact.val());
 			form_data.append('username',username.val());
@@ -524,7 +526,7 @@ $(document).ready(function(e){
 				form_data.append('banner_image',$('#banner-img')[0].files[0]);
 			}
 			$.ajax({
-				url:base_url+'members/update_profile',
+				url:base_url+'profile/update_profile',
 				type:'POST',
 				processData:false,
 				contentType: false,
@@ -532,30 +534,37 @@ $(document).ready(function(e){
 				success:function(msg)
 				{
 					let res = $.parseJSON(msg);
-					if(res[0]=='contact_error')
-					{
-						show_notification('error','Contact Already Exists');
-					}
-					else if(res[0]=='contact_error')
-					{
-						show_notification('error','Email Already Exists');
-					}
-					else if(res[0]=='username_error')
-					{
-						show_notification('error','Username Already Exists');
-					}
-					else if(res[0]=='success')
-					{
+					if(res['msg'] == 'success'){
 						show_notification('success','Profile Updated');
 					}
-					else if(res[0]=='error')
-					{
-						show_notification('error','Unexpeced Error Try Again');
-					}
-					else
-					{
-						show_notification('error',res[0]);
-					}
+					
+					// if(res[0]=='contact_error')
+					// {
+					// 	show_notification('error','Contact Already Exists');
+					// }
+					// else if(res[0]=='contact_error')
+					// {
+					// 	show_notification('error','Email Already Exists');
+					// }
+					// else if(res[0]=='username_error')
+					// {
+					// 	show_notification('error','Username Already Exists');
+					// }
+					// else if(res[0]=='success')
+					// {
+					// 	show_notification('success','Profile Updated');
+					// }
+					// else if(res[0]=='error')
+					// {
+					// 	show_notification('error','Unexpeced Error Try Again');
+					// }
+					// else
+					// {
+					// 	show_notification('error',res[0]);
+					// }
+				},
+				error:function(err){
+
 				}
 			});
 		}

@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\frontend\HomeController;
+use App\Http\Controllers\frontend\ProfileController;
 use App\Http\Controllers\MemberLoginController;
 
 // website routes starts here
@@ -31,8 +32,11 @@ Route::name("member.")->group( function()
 	Route::group(['middleware' => ['auth']], function(){
 
 		Route::post('/logout',[MemberLoginController::class, 'logout'])->name('logout');
+//Profile
+        Route::get('/profile', [ProfileController::class, 'profile'])->name('profile');
+        Route::post('/profile/update_profile', [ProfileController::class, 'update'])->name('profile.update_profile');
 
-        Route::get('/profile', [HomeController::class, 'profile'])->name('profile');
+
         Route::get('/myads', [HomeController::class, 'myads'])->name('myads');
         Route::get('/watchList', [HomeController::class, 'watchList'])->name('watchList');
         Route::get('/following', [HomeController::class, 'following'])->name('following');
