@@ -537,7 +537,18 @@ $(document).ready(function(e){
 					if(res['msg'] == 'success'){
 						show_notification('success','Profile Updated');
 					}
-					
+
+					if(res['profile_error'] == 'type_error1'){
+						show_notification('error','The filetype you are attempting to upload is not allowed.')
+					}
+
+					if(res['banner_error'] == 'type_error2'){
+						show_notification('error','The filetype you are attempting to upload is not allowed.')
+					}
+					if(res['msg'] == 'failed'){
+						show_notification('error','Unexpeced Error Try Again')
+					}
+					console.log(res);
 					// if(res[0]=='contact_error')
 					// {
 					// 	show_notification('error','Contact Already Exists');

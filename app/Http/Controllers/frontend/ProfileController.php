@@ -47,6 +47,8 @@ class ProfileController extends Controller
     public function update(Request $request){
         
         // Data Updation Start
+
+        $response = [];
         $up_errors = 0;
         $uid = auth()->user()->uid;
         $member = Member::find($uid);
@@ -71,8 +73,7 @@ class ProfileController extends Controller
            if(!$check)
            {
             $up_errors++;
-            $error = "The filetype you are attempting to upload is not allowed.";
-             $profile_image_errors = array('error'=>$error,'status'=>201);
+            $response['profile_error'] = 'type_error1';
            }
            else{
 
@@ -86,6 +87,9 @@ class ProfileController extends Controller
                 $member->profile_image = $fileName;
 
                 }
+                else{
+                $up_errors++;
+            }
           }
         
         }
@@ -95,27 +99,29 @@ class ProfileController extends Controller
         // Banner_image Uploading Start
             if($request->hasFile('banner_image')){
 
-            $allowedfileExtension=['jpg','png','jpeg','webp'];
-            $file = $request->file('banner_image');
-            $originalName = $file->getClientOriginalName();
-            $extension = $file->getClientOriginalExtension();
-            $check=in_array($extension,$allowedfileExtension);
+            $allowedfileExtension1=['jpg','png','jpeg','webp'];
+            $file1 = $request->file('banner_image');
+            $originalName1 = $file1->getClientOriginalName();
+            $extension1 = $file1->getClientOriginalExtension();
+            $check1=in_array($extension1,$allowedfileExtension1);
 
-           if(!$check)
+           if(!$check1)
            {
             $up_errors++;
-            $error = "The filetype you are attempting to upload is not allowed.";
-            $banner_image_errors = array('error'=>$error,'status'=>201);
+            $response['banner_error'] = 'type_error2';
            }
            else{
 
-           $onlyname = pathinfo($originalName, PATHINFO_FILENAME);
-           $onlyext=$file->extension();
-           $fileName = $onlyname.'_'.time(). '.'.$onlyext;
-           $is_uploaded = $file->move(public_path('member_banner_images/'), $fileName);
-           if($is_uploaded){
+           $onlyname1 = pathinfo($originalName1, PATHINFO_FILENAME);
+           $onlyext1=$file1->extension();
+           $fileName1 = $onlyname1.'_'.time(). '.'.$onlyext1;
+           $is_uploaded1 = $file1->move(public_path('member_banner_images/'), $fileName1);
+           if($is_uploaded1){
 
-                $member->banner_image = $fileName;
+                $member->banner_image = $fileName1;
+            }
+            else{
+                $up_errors++;
             }
           }
         }
@@ -132,11 +138,16 @@ class ProfileController extends Controller
         if($member->save())
         {
             $msg = 'success';
+            $response['msg'] = $msg;
+        }else
+        {
+            $msg = 'failed';
+            $response['msg'] = $msg;
         }
 
         }
 
-        echo json_encode(['msg'=>$msg]);
+        echo json_encode($response);
         
     // Data Updation End
 

@@ -88,7 +88,7 @@
                             <!--<li aria-haspopup="true"><a href="javascript:void(0);">My Purchases</a></li>-->
                             <li aria-haspopup="true"><a href="">Following</a></li>
                             <li aria-haspopup="true"><a href="">Followers</a></li>
-                            <li aria-haspopup="true"><a href="">My Profile</a></li>
+                            <li aria-haspopup="true"><a href="{{url('profile')}}">My Profile</a></li>
                             <li aria-haspopup="true"><a href="">My Office</a></li>
                             <li aria-haspopup="true"><a href="{{route("member.logout")}}" onclick="event.preventDefault();
                                 document.getElementById('logout-form').submit();">Log Out</a></li>
