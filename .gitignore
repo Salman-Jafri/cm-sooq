@@ -1,4 +1,5 @@
 /node_modules
+/public/car_uploads
 /public/build
 /public/hot
 /public/storage

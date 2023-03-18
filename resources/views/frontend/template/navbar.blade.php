@@ -103,7 +103,7 @@
                     </li>
                   @endguest
                   <li aria-haspopup="true">
-                     <a href="#" class="btn btn-success" style="color:#ffffff;">
+                     <a href="{{route("member.postAd")}}" class="btn btn-success" style="color:#ffffff;">
                      <i class="fa fa-plus" style="color:#ffffff;"></i>POST AD NOW </a>
                   </li>
                   <!-- if end here role member -->

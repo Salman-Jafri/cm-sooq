@@ -47,7 +47,7 @@
     <!--    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/dataTables.bootstrap4.min.css"><link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.9/css/responsive.dataTables.min.css"><link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/2.2.2/css/buttons.dataTables.min.css"><link href="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/css/bootstrap4-toggle.min.css" rel="stylesheet"> -->
     <!--  custom-css-general -->
     <link href="{{ url('frontend/custom_css/general.css') }}" rel="stylesheet" />
-
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
     <script type="text/javascript">
       var base_url= "{{URL::to('/')}}"+"/";
       // var csrf_token_name  = "";
@@ -58,7 +58,7 @@
       var sl2_make = ' Make';
       var sl2_model = ' Model';
       // var lang = "";
-      // var dvtype= "";
+      var dvtype= "";
       var cpage = 'web';
       var member_id = 'none';
       var show_loading = 'yes';

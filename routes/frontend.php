@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\frontend\HomeController;
 use App\Http\Controllers\MemberLoginController;
+use App\Http\Controllers\AdController;
 
 // website routes starts here
 Route::get('/', [HomeController::class, 'index'])->name("index");
@@ -37,7 +38,9 @@ Route::name("member.")->group( function()
         Route::get('/watchList', [HomeController::class, 'watchList'])->name('watchList');
         Route::get('/following', [HomeController::class, 'following'])->name('following');
         Route::get('/follower', [HomeController::class, 'follower'])->name('follower');
-        Route::get('/ads/create', [HomeController::class, 'postAd'])->name('postAd');
+        Route::get('/ads/create', [AdController::class, 'show_add_form'])->name('postAd');
+        Route::post('/members/get_models', [AdController::class, 'get_models'])->name('get_models');
+        Route::post('/members/post_ad_pro', [AdController::class, 'post_ad_pro'])->name('post_ad_pro');
 
 	});
 

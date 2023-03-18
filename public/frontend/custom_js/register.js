@@ -17,7 +17,7 @@ $(document).ready(function(e){
 
 			// form_data.append(csrf_token_name,csrf_token_value);
 		  	$.ajax({
-		      url:base_url+'/register',
+		      url:base_url+'register/pro',
 		      type:'POST',
 		      processData:false,
 		      contentType: false,
