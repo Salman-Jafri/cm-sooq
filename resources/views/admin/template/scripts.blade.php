@@ -5,7 +5,7 @@
    <script src="{{ url('admin/libs/metismenu/metisMenu.min.js')}}"></script>
    <script src="{{ url('admin/libs/simplebar/simplebar.min.js')}}"></script>
    <script src="{{ url('admin/libs/node-waves/waves.min.js')}}"></script>
-  
+
    <!-- forms js-->
    <script src="{{ url('admin/libs/bootstrap-datepicker/js/bootstrap-datepicker.min.js')}}"></script>
    <script src="{{ url('admin/libs/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js')}}"></script>
@@ -78,7 +78,7 @@
    <script src="{{ url('admin/libs/admin-resources/rwd-table/rwd-table.min.js')}}"></script>
 
    <!-- Init Responsive js -->
-   <script src="{{ url('admin/js/pages/table-responsive.init.js')}}"></script> 
+   <script src="{{ url('admin/js/pages/table-responsive.init.js')}}"></script>
 
     <!-- form repeater js -->
     <script src="{{ url('admin/libs/jquery.repeater/jquery.repeater.min.js')}}"></script>
@@ -89,9 +89,9 @@
     <script src="{{ url('admin/libs/sweetalert2/sweetalert2.min.js')}}"></script>
     <!-- Sweet alert init js-->
     <script src="{{ url('admin/js/pages/sweet-alerts.init.js')}}"></script>
-    
+
     <script src="{{ url('admin/js/app.js')}}"></script>
     <script src="{{ url('admin/custom_vendors/lobibox/dist/js/lobibox.min.js') }}"></script>
     <script src="{{ url('admin/custom_vendors/lobibox/dist/js/notifications.min.js') }}"></script>
     @php $v=rand(2000,3000); @endphp
-    <script src="{{ url('admin/custom_js/main_scripts.js?v='.$v)}}"></script> 
+    <script src="{{ url('admin/custom_js/main_scripts.js?v='.$v)}}"></script>

@@ -160,7 +160,13 @@
     <!-- JQuery js-->
     <script src="{{ url('frontend/js/jquery-3.2.1.min.js') }}"></script>
     <script src="{{ url('frontend/custom_js/jquery-ui.min.js') }}"></script>
-
+    <script>
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+    </script>
     <script src="https://code.jquery.com/jquery-migrate-1.4.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/js-image-zoom/js-image-zoom.min.js"></script>
 
@@ -213,7 +219,7 @@
   <script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"></script>
     <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
     <!-- Custom Js-->
-    <script src="{{ url('frontend/js/custom.js') }}"></script> 
+    <script src="{{ url('frontend/js/custom.js') }}"></script>
 
      <!-- Owl Carousel Js-->
     <script src="{{ url('frontend/js/owl-carousel.js') }}"></script>

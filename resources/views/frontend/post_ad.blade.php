@@ -33,15 +33,16 @@
                </div>
                <div class="card-body">
                   <form id="carAddForm">
+                    @csrf
                      <div class="row">
                         <div class="col-sm-6 col-md-3">
                            <div class="form-group">
                               <label class="form-label" for="make_id">Make</label>
                               <select class="form-control ifrequired select2-show-search-make make_id df_make" name="make_id" id="make_id">
-                                 <option value="" selected="">Make</option>
-                                 <option value="1">ACURA</option>
-                                 <option value="120">ALFA ROMEO</option>
-                                 <option value="3">ASTON MARTIN</option>
+                                <option value="" selected>{Choose}</option>
+                                 @foreach($make as $mk):
+                                    <option value="<?=$mk->uid;?>"><?=$mk->make;?></option>
+                                 @endforeach
                               </select>
                            </div>
                         </div>
@@ -58,8 +59,8 @@
                               <label class="form-label" for="year">Year</label>
                               <select class="form-control ifrequired isnumber df_year" placeholder="Year" name="year" id="year">
                                  <option value="" selected="">Choose</option>
-                                 <option value="2024">2024</option>
-                                 <option value="2023">2023</option>
+                                 @php echo hlp_gen_years(1990,false,1);
+                                 @endphp
                               </select>
                            </div>
                         </div>
@@ -130,12 +131,11 @@
                               <label class="form-label" for="color_exterior">Color Exterior</label>
                               <select class="form-control ifrequired" type="text" name="color_exterior" id="color_exterior">
                                  <option value="" selected="">Choose</option>
-                                 <option value="18" data-color="#984598">
-                                    Purple 
-                                 </option>
-                                 <option value="13" data-color="#FFFFFF">
-                                    White 
-                                 </option>
+                                @foreach($exterior_color as $optn):
+                                    <option value="<?=$optn->uid;?>" data-color="<?=$optn->color_code;?>">
+                                        <?=$optn->exterior_color;?>
+                                    </option>
+                                @endforeach
                               </select>
                            </div>
                         </div>
@@ -144,9 +144,9 @@
                               <label class="form-label" for="color_interior">Color Interior</label>
                               <select class="form-control ifrequired" type="text" name="color_interior" id="color_interior" >
                                  <option value="" selected="">Choose</option>
-                                 <option value="17" data-color="#F5F084">Yellow </option>
-                                 <option value="18" data-color="#8C262F">Burgundy</option>
-                                 <option value="1" data-color="#0000FF">Blue</option>
+                                 @foreach($interior_color as $optn):
+                                    <option value="<?=$optn->uid;?>" data-color="<?=$optn->color_code;?>"><?=$optn->interior_color;?></option>
+                                 @endforeach
                               </select>
                            </div>
                         </div>
@@ -155,9 +155,9 @@
                               <label class="form-label" for="drive_line">Drive Line</label>
                               <select class="form-control ifrequired df_driveline" type="text" name="drive_line" id="drive_line">
                                  <option value="" selected="">Choose</option>
-                                 <option value="2">Rear</option>
-                                 <option value="3">Front</option>
-                                 <option value="1">4 x 4</option>
+                                 @foreach($drive_line as $optn):
+                                    <option value="<?=$optn->uid;?>"><?=$optn->drive_line;?></option>
+                                 @endforeach
                               </select>
                            </div>
                         </div>
@@ -178,10 +178,9 @@
                               <label class="form-label" for="odometer">Odometer</label>
                               <select class="form-control ifrequired" name="odometer" id="odometer">
                                  <option value="" selected="">Choose</option>
-                                 <option value="4">0</option>
-                                 <option value="5">1 - 9,999</option>
-                                 <option value="6">10,000 - 19,999</option>
-                                 <option value="7">20,000 - 29,999</option>
+                                 @foreach($odometer as $odom):
+								    <option value="<?=$odom->uid;?>"><?=$odom->odometer;?></option>
+                                 @endforeach
                               </select>
                            </div>
                         </div>
@@ -351,4 +350,8 @@
       </div>
    </div>
 </div>
+@endsection
+@section('customjs')
+<!-- Custom js-->
+<script src="{{ url('frontend/custom_js/members.js')}}"></script>
 @endsection
