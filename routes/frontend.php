@@ -35,7 +35,7 @@ Route::name("member.")->group( function()
 		Route::post('/logout',[MemberLoginController::class, 'logout'])->name('logout');
 //Profile
         Route::get('/profile', [ProfileController::class, 'profile'])->name('profile');
-        Route::post('/profile/update_profile', [ProfileController::class, 'update'])->name('profile.update_profile');
+        Route::post('members/update_profile', [ProfileController::class, 'update'])->name('profile.update_profile');
 
 
         Route::get('/myads', [HomeController::class, 'myads'])->name('myads');
