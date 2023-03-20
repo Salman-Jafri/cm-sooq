@@ -5,7 +5,7 @@
 	  {
 	    return false;
 	  }
-	  else 
+	  else
 	  {
 	    return true;
 	  }
@@ -25,7 +25,7 @@
 			{
 				$('<p class="clrreq help-block text-red" style="color:red;">*Length must be 3 or more</p>').hide().fadeIn('slow').insertAfter(selector);
 				flag++;
-			}	
+			}
 		});
 		if(flag>0)
 		{
@@ -44,7 +44,7 @@
 			{
 				$('<p class="clrreq help-block text-red" style="color:red;">* Invalid Email address</p>').hide().fadeIn('slow').insertAfter(selector);
 				flag++;
-			}	
+			}
 		});
 		if(flag>0)
 		{
@@ -52,7 +52,7 @@
 		}
 	}
 
-	function IsEmail(email) 
+	function IsEmail(email)
 	{
 	  var regex = /^([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
 	  if(!regex.test(email)) {
@@ -70,11 +70,11 @@
     	      $('#close-counter').html(count - 1);
     	    } else {
     	      clearInterval(timer);
-    	      $('#popup-msg-modal').modal('hide');	
+    	      $('#popup-msg-modal').modal('hide');
     	    }
     	}, 1000);
 	}
-	
+
 	function show_notification(type,heading,text="")
 	{
 		// let heading = type[0].toUpperCase() + type.substring(1);
@@ -126,7 +126,7 @@
 		$('#notify-modal-text').addClass(notify_text_color);
 		$('#notify-modal').modal('show');
 	}
-	
+
 	function fill_edit_fields(unique_id,selector,submission,path)
 	{
 		var editForm = $(selector).find('form');
@@ -162,7 +162,7 @@
 							else
 							{
   			      				$('#'+input_id).val(value);
-								
+
 							}
   			      		}
   					});
@@ -171,7 +171,7 @@
 	      }
 	  	});
 	}
-		
+
 	function ajax_delete(unique_id,submission,dt)
 	{
 		var len = arguments.length;
@@ -313,7 +313,7 @@
 				}
 			});
 		});
-		
+
 		$('#btn-subscribe-wa').on('click',function(e){
 			let wa_number = $('#subscribe-wa');
 			wa_number.removeClass('animate__animated')
@@ -324,7 +324,7 @@
 				setTimeout(function(){
 					wa_number.addClass('animate__animated');
 					wa_number.addClass('animate__headShake');
-					wa_number.addClass('border-danger');	
+					wa_number.addClass('border-danger');
 				},500);
 				// wa_number.removeClass('animate__animated animate__headShake');
 			}
@@ -372,7 +372,7 @@
 		$(document).on('click','.btn-wishlist',function(e){
 			let car_id = $(this).data('id');
 			let rmv    = $(this).data('rmv');
-			
+
 			$.ajax({
 				url:base_url+'cars/add_to_wishlist',
 				type:'POST',
@@ -398,7 +398,7 @@
 									$(this).find('i').removeClass('far');
 									$(this).find('i').addClass('fas');
 								}
-							});		
+							});
 						}
 						else if(res[1]=='removed')
 						{
@@ -411,7 +411,7 @@
 									$(this).find('i').addClass('far');
 									if(rmv=='yes')
 									{
-										$(this).parent().parent().parent().parent().parent().parent().parent().remove();	
+										$(this).parent().parent().parent().parent().parent().parent().parent().remove();
 									}
 								}
 							});
@@ -425,11 +425,99 @@
 			});
 		});
 
+        $(document).on('change','.df_year',function(e){
+			e.preventDefault();
+			var make = $('.df_make :selected').val();
+			var model = $('.df_model :selected').val();
+			var year =  $(this).find(":selected").text();
+			$.ajax({
+				url:base_url+'members/getDefaultValues',
+				type:'POST',
+				data:{make:make,model:model,year:year},
+				success:function(msg)
+				{
+
+				var res = $.parseJSON(msg)
+				if(res['cylinder']!=null)
+				{
+					$('.df_cylinder').val(res['cylinder']);
+					$('.df_transmission').val(res['transmission']);
+					$('.df_ckeys').val(res['ckeys']);
+					$('.df_options').val(res['options']);
+					$('.df_fueltype').val(res['fueltype']);
+					$('.df_driveline').val(res['driveline']);
+					$('.df_from_year').val(res['from_year']);
+					$('.df_to_year').val(res['to_year']);
+
+					$('.chk_make_id').find('i').removeClass('d-none');
+					$('.chk_model_id').find('i').removeClass('d-none');
+					$('.chk_year').find('i').removeClass('d-none');
+
+                    $('.chk_cylinders').find('i').removeClass('d-none');
+					$('.chk_transmission').find('i').removeClass('d-none');
+					$('.chk_ckeys').find('i').removeClass('d-none');
+					$('.chk_options').find('i').removeClass('d-none');
+					$('.chk_fuel_type').find('i').removeClass('d-none');
+					$('.chk_drive_line').find('i').removeClass('d-none');
+
+                    $('.chk_cylinders').removeClass('chk_err');
+					$('.chk_transmission').removeClass('chk_err');
+					$('.chk_ckeys').removeClass('chk_err');
+					$('.chk_options').removeClass('chk_err');
+					$('.chk_fuel_type').removeClass('chk_err');
+					$('.chk_drive_line').removeClass('chk_err');
+
+        	        $('.chk_color_exterior').addClass('chk_err');
+					$('.chk_color_interior').addClass('chk_err');
+					$('.chk_odometer').addClass('chk_err');
+					$('.chk_sell_price').addClass('chk_err');
+					$('.chk_notes').addClass('chk_err');
+				}
+				else
+                {
+					$('.df_cylinder').val('');
+					$('.df_transmission').val('');
+					$('.df_ckeys').val('');
+					$('.df_options').val('');
+					$('.df_fueltype').val('');
+					$('.df_driveline').val('');
+					$('.df_from_year').val('');
+					$('.df_to_year').val('');
+
+
+					$('.chk_make_id').find('i').removeClass('d-none');
+					$('.chk_model_id').find('i').removeClass('d-none');
+					$('.chk_year').find('i').removeClass('d-none');
+
+                    $('.chk_cylinders').find('i').addClass('d-none');
+					$('.chk_transmission').find('i').addClass('d-none');
+					$('.chk_ckeys').find('i').addClass('d-none');
+					$('.chk_options').find('i').addClass('d-none');
+					$('.chk_fuel_type').find('i').addClass('d-none');
+					$('.chk_drive_line').find('i').addClass('d-none');
+
+					$('.chk_cylinders').addClass('chk_err');
+					$('.chk_transmission').addClass('chk_err');
+					$('.chk_ckeys').addClass('chk_err');
+					$('.chk_options').addClass('chk_err');
+					$('.chk_color_exterior').addClass('chk_err');
+					$('.chk_color_interior').addClass('chk_err');
+					$('.chk_fuel_type').addClass('chk_err');
+					$('.chk_drive_line').addClass('chk_err');
+					$('.chk_odometer').addClass('chk_err');
+					$('.chk_sell_price').addClass('chk_err');
+					$('.chk_notes').addClass('chk_err');
+				}
+
+				}
+			});
+		});
+
 		$(document).on('click','.btn-call',function(e){
 			let car_id = $(this).data('id');
 			let dtype  = $(this).data('type');
 			let dcall  = $(this).data('call');
-			
+
 			if(dcall=='call')
 			{
 
@@ -484,9 +572,9 @@
 				// 	$(this).html('<p class="text-secondary mt-2 text-center"><i class="fas fa-phone"></i> Call</p>');
 				// 	$(this).data('call','call');
 				// }
-				
+
 			}
-			
+
 		});
 
 		$(document).on('click','.count-whatsapp',function(e){
@@ -571,7 +659,7 @@
 						}
 					}
 				});
-			
+
 		});
 
 		$(document).on('click','.btn-remove-follower',function(e){
@@ -584,11 +672,11 @@
 					success:function(msg)
 					{
 						var res=$.parseJSON(msg);
-						
+
 						if(res[0]=='success')
 						{
-							
-							
+
+
 							$(this).parent().parent().parent().parent().parent().parent().parent().parent().remove();
 						}
 						else
@@ -597,7 +685,7 @@
 						}
 					}
 				});
-			
+
 		});
 
 		$(document).on('click','.btn-follow',function(e){
@@ -635,12 +723,12 @@
 			{
 				$(this).html('<i class="fas fa-phone"></i> Call');
 			}
-			
-		});	
+
+		});
 
 		$('#btn-login-modal').on('click',function(e){
 			$('#error-msg-div').addClass('d-none');
-			var myurl        = window.location.href; 
+			var myurl        = window.location.href;
 			var login_form = $("#login-form")[0];
 			if (login_form.checkValidity())
 			{
@@ -663,7 +751,7 @@
 			      	 }
 			      	 else if(res[0]=='error')
 			      	 {
-			      	 	
+
 			      	 }
 			      	 else
 			      	 {
@@ -673,7 +761,7 @@
 			      	 }
 		      	  }
 			  	});
-			}	       
+			}
 			else
 			{
 			   login_form.reportValidity()
@@ -702,25 +790,25 @@
 			$('#delete-id').val(unique_id);
 			$('#btn-delete').attr('id',btn);
 		});
-		
+
 		$body = $("body");
-		
-		
+
+
 
 	    $(document).on({
 	       ajaxStart: function(){
 		        if(show_loading=='yes')
 		        {
 		       		$body.addClass("loading");
-		        } 
+		        }
 	       },
-	       ajaxStop: function(){ 
+	       ajaxStop: function(){
 	       		if(show_loading=='no')
 	       		{
 	       			show_loading='yes';
 	       		}
 	       		$body.removeClass("loading");
-	       }    
+	       }
 	    });
 
 	});

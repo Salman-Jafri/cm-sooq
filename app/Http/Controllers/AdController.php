@@ -10,19 +10,21 @@ use App\Models\admin\CarsInteriorColor;
 use App\Models\admin\CarsDriveLine;
 use App\Models\admin\CarsOdometer;
 use App\Models\admin\CarsFiles;
+use App\Models\admin\ModelDefault;
+
 use Illuminate\Support\Facades\Auth;
 
 use Illuminate\Http\Request;
-
+use DB;
 class AdController extends Controller
 {
     public function show_add_form()
     {
-        $make = CarsMake::cursor();
-        $exterior_color = CarsExteriorColor::cursor();
-        $interior_color = CarsInteriorColor::cursor();
-        $drive_line = CarsDriveLine::cursor();
-        $odometer = CarsOdometer::cursor();
+        $make = CarsMake::all();
+        $exterior_color = CarsExteriorColor::all();
+        $interior_color = CarsInteriorColor::all();
+        $drive_line = CarsDriveLine::all();
+        $odometer = CarsOdometer::all();
 
         return view("frontend.post_ad", compact("make","exterior_color","interior_color","drive_line","odometer"));
     }
@@ -134,7 +136,7 @@ class AdController extends Controller
 
                     //setting this as 0 because we don't have a default value for in_user in db
 
-                    $posted_data->in_user = '';
+                    $posted_data->created_by = $member_id;
 
                     if($posted_data->save())
                     {
@@ -150,6 +152,8 @@ class AdController extends Controller
         if($errors_counter>0)
         {
             $upload_msg =implode('<br>',$error_log);
+            $msg = 'error';
+
         }
         else
         {
@@ -159,5 +163,44 @@ class AdController extends Controller
 
 		echo json_encode(array('token_value',$msg,$upload_msg,$trans_smsg));
 
+    }
+
+    public function get_default_values(Request $request)
+    {
+        $cylinder =null;
+		$transmission =null;
+		$ckeys =null;
+		$options =null;
+		$fueltype =null;
+		$driveline =null;
+		$from_year =null;
+		$to_year =null;
+
+        $errors = $request->validate([
+            'make' => 'required',
+            'model' => 'required',
+            'year' => 'required',
+        ]);
+
+        $data = ModelDefault::where([
+            ["make","=",$request->make],
+            ["model","=",$request->model],
+            ["from_year","<=",$request->year],
+            ["to_year",">=",$request->year],
+        ])->first();
+
+        if($data)
+        {
+            $cylinder = $data->cylinder;
+            $transmission = $data->transmission;
+            $ckeys = $data->ckeys;
+            $options = $data->options;
+            $fueltype = $data->fueltype;
+            $driveline = $data->driveline;
+            $from_year = $data->from_year;
+            $to_year = $data->to_year;
+        }
+
+        echo json_encode(array('cylinder'=>$cylinder,'transmission'=>$transmission,'ckeys'=>$ckeys,'options'=>$options,'fueltype'=>$fueltype,'driveline'=>$driveline,'from_year'=>$from_year,'to_year'=>$to_year));
     }
 }

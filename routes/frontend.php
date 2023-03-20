@@ -33,7 +33,8 @@ Route::name("member.")->group( function()
 	Route::group(['middleware' => ['auth']], function(){
 
 		Route::post('/logout',[MemberLoginController::class, 'logout'])->name('logout');
-//Profile
+
+        //Profile
         Route::get('/profile', [ProfileController::class, 'profile'])->name('profile');
         Route::post('members/update_profile', [ProfileController::class, 'update'])->name('profile.update_profile');
 
@@ -45,6 +46,7 @@ Route::name("member.")->group( function()
         Route::get('/ads/create', [AdController::class, 'show_add_form'])->name('postAd');
         Route::post('/members/get_models', [AdController::class, 'get_models'])->name('get_models');
         Route::post('/members/post_ad_pro', [AdController::class, 'post_ad_pro'])->name('post_ad_pro');
+        Route::post('/members/getDefaultValues', [AdController::class, 'get_default_values'])->name('get_default_values');
 
 	});
 

@@ -128,8 +128,8 @@
                         </div>
                         <div class="col-sm-6 col-md-4">
                            <div class="form-group">
-                              <label class="form-label" for="color_exterior">Color Exterior</label>
-                              <select class="form-control ifrequired" type="text" name="color_exterior" id="color_exterior">
+                              <label class="form-label" for="exterior_color">Color Exterior</label>
+                              <select class="form-control ifrequired" type="text" name="exterior_color" id="color_exterior">
                                  <option value="" selected="">Choose</option>
                                 @foreach($exterior_color as $optn):
                                     <option value="<?=$optn->uid;?>" data-color="<?=$optn->color_code;?>">
@@ -141,8 +141,8 @@
                         </div>
                         <div class="col-sm-6 col-md-4">
                            <div class="form-group">
-                              <label class="form-label" for="color_interior">Color Interior</label>
-                              <select class="form-control ifrequired" type="text" name="color_interior" id="color_interior" >
+                              <label class="form-label" for="interior_color">Color Interior</label>
+                              <select class="form-control ifrequired" type="text" name="interior_color" id="color_interior" >
                                  <option value="" selected="">Choose</option>
                                  @foreach($interior_color as $optn):
                                     <option value="<?=$optn->uid;?>" data-color="<?=$optn->color_code;?>"><?=$optn->interior_color;?></option>
