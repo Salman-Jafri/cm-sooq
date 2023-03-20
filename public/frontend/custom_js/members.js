@@ -499,15 +499,15 @@ $(document).ready(function(e){
 		if(errors==0)
 		{
 			let form_data = new FormData();
-
+			let token = $('#token').val();
 			let member_email = $('#member_email').val();
 			let member_contact2 = $('#member_contact2').val();
 			let member_location = $('#member_location').val();
 			let member_description = $('#member_description').val();
 			let banner_image  = $('#banner-img')[0].files.length;
 			let profile_image = $('#profile_image')[0].files.length;
-
-			form_data.append('_token',$('input[name="_token"]').val());
+			
+			form_data.append('_token',token);
 			form_data.append('member_name',member_name.val());
 			form_data.append('member_contact',member_contact.val());
 			form_data.append('username',username.val());
@@ -534,48 +534,33 @@ $(document).ready(function(e){
 				success:function(msg)
 				{
 					let res = $.parseJSON(msg);
-					if(res['msg'] == 'success'){
+					if(res[0]=='contact_error')
+					{
+						show_notification('error','Contact Already Exists');
+					}
+					else if(res[0]=='contact_error')
+					{
+						show_notification('error','Email Already Exists');
+					}
+					else if(res[0]=='username_error')
+					{
+						show_notification('error','Username Already Exists');
+					}
+					else if(res[0]=='success')
+					{
 						show_notification('success','Profile Updated');
 					}
-
-					if(res['profile_error'] == 'type_error1'){
-						show_notification('error','The filetype you are attempting to upload is not allowed.')
+					else if(res[0]=='error')
+					{
+						show_notification('error','Unexpeced Error Try Again');
 					}
-
-					if(res['banner_error'] == 'type_error2'){
-						show_notification('error','The filetype you are attempting to upload is not allowed.')
+					else
+					{
+						show_notification('error',res[0]);
 					}
-					if(res['msg'] == 'failed'){
-						show_notification('error','Unexpeced Error Try Again')
-					}
-					console.log(res);
-					// if(res[0]=='contact_error')
-					// {
-					// 	show_notification('error','Contact Already Exists');
-					// }
-					// else if(res[0]=='contact_error')
-					// {
-					// 	show_notification('error','Email Already Exists');
-					// }
-					// else if(res[0]=='username_error')
-					// {
-					// 	show_notification('error','Username Already Exists');
-					// }
-					// else if(res[0]=='success')
-					// {
-					// 	show_notification('success','Profile Updated');
-					// }
-					// else if(res[0]=='error')
-					// {
-					// 	show_notification('error','Unexpeced Error Try Again');
-					// }
-					// else
-					// {
-					// 	show_notification('error',res[0]);
-					// }
 				},
-				error:function(err){
-
+				error:function(msg){
+					console.log(msg);
 				}
 			});
 		}

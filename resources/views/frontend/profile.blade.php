@@ -59,7 +59,7 @@
                   <div class="row">
                      <div class="col-sm-6 col-md-6">
                         <div class="form-group">
-                           
+                           <input type="hidden" name="_token" id="token" value="{{ csrf_token() }}">
                            <label class="form-label">Name  <small><i><span class="text-danger d-none">(*Required)</span></i></small> </label>
                            <input type="text" class="form-control ifrequired" placeholder="Name" value="{{ $data['member_name']}}" id="member_name">
                         </div>
@@ -108,7 +108,7 @@
                         </div>
                      </div>
                      <div class="col-sm-12 col-md-12">
-                        <div class="form-group">
+                        <div lass="form-group">
                            <label class="form-label">Description </label>
                            <textarea class="form-control ifrequired" placeholder="Description" value="{{$data['member_description']}}" id="member_description"></textarea>
                         </div>
