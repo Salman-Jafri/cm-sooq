@@ -74,6 +74,9 @@ class AdController extends Controller
 		$posted_data->trader_id = $member_id;
 		$posted_data->broker_id = $member_id;
 
+        //setting this as 0 because we don't have a default value for origin_id in db
+		$posted_data->origin_id = 0;
+
         foreach($request->except(["car_uploads","_token","cover_img"]) as $key => $data)
         {
             $posted_data->$key = $data;
@@ -128,6 +131,11 @@ class AdController extends Controller
                     $posted_data->car_id = $ad_id;
                     $posted_data->file_org_name = $originalName;
                     $posted_data->file_up_name = $fileName;
+
+                    //setting this as 0 because we don't have a default value for in_user in db
+
+                    $posted_data->in_user = '';
+
                     if($posted_data->save())
                     {
                         $upload_msg++;
