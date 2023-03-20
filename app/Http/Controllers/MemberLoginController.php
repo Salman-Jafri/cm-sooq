@@ -7,6 +7,7 @@ use Illuminate\Validation\ValidationException;
 use Illuminate\Http\Request;
 use App\Models\Member;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
 
 class MemberLoginController extends Controller
 {
@@ -36,7 +37,7 @@ class MemberLoginController extends Controller
 
     public function register(Request $request)
     {
-        $validator = \Validator::make($request->all(),[
+        $validator = Validator::make($request->all(),[
             'username' => 'required|unique:ac_members,username',
             'member_contact' => 'required|unique:ac_members,member_contact',
             'member_name' => 'required|unique:ac_members,member_name',
@@ -49,8 +50,8 @@ class MemberLoginController extends Controller
         }
         else
         {
-            $request->userpass = Hash::make($request->userpass);
-            $member = Member::create(["username"=>$request->username,"userpass"=>$request->userpass,"member_contact"=>$request->member_contact,"member_name"=>$request->member_name]);
+            $userpass = Hash::make($request->userpass);
+            $member = Member::create(["username"=>$request->username,"userpass"=>$userpass,"member_contact"=>$request->member_contact,"member_name"=>$request->member_name]);
             if($member)
             {
                 // return response()->json(array('success'));

@@ -32,7 +32,7 @@
 								<button type="submit" class="btn btn-primary btn-block" id="btn-login">Login</button>
 							</div>
 							<p class="mb-2"><a href="#" data-toggle="modal" data-target="#password-reset-modal">Forgot Password</a></p>
-							<p class="text-dark mb-0">Don't have account?<a href="{{route("member.register")}}" class="text-primary ml-1">Sign Up</a></p>
+							<p class="text-dark mb-0">Don't have account?<a href="{{route('member.register')}}" class="text-primary ml-1">Sign Up</a></p>
 						</form>
 								<!-- <span class="main-or">Or</span> -->
 
