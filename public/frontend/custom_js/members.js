@@ -499,7 +499,6 @@ $(document).ready(function(e){
 		if(errors==0)
 		{
 			let form_data = new FormData();
-			let token = $('#token').val();
 			let member_email = $('#member_email').val();
 			let member_contact2 = $('#member_contact2').val();
 			let member_location = $('#member_location').val();
@@ -507,7 +506,6 @@ $(document).ready(function(e){
 			let banner_image  = $('#banner-img')[0].files.length;
 			let profile_image = $('#profile_image')[0].files.length;
 			
-			form_data.append('_token',token);
 			form_data.append('member_name',member_name.val());
 			form_data.append('member_contact',member_contact.val());
 			form_data.append('username',username.val());
@@ -526,7 +524,7 @@ $(document).ready(function(e){
 				form_data.append('banner_image',$('#banner-img')[0].files[0]);
 			}
 			$.ajax({
-				url:base_url+'profile/update_profile',
+				url:base_url+'members/update_profile',
 				type:'POST',
 				processData:false,
 				contentType: false,
@@ -558,9 +556,6 @@ $(document).ready(function(e){
 					{
 						show_notification('error',res[0]);
 					}
-				},
-				error:function(msg){
-					console.log(msg);
 				}
 			});
 		}
