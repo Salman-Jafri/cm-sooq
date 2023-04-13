@@ -172,6 +172,75 @@
 	  	});
 	}
 
+		function generate_required(form)
+	{
+		var flag=0;
+		$(form+' .clrreq').remove();
+		$(form+' .ifrequired').each(function(){
+			var id = $(this).attr('id');
+			var selector = '#'+id;
+			if($(selector).val()=="")
+			{
+				$('<p class="clrreq help-block text-red" style="color:red;">*Required</p>').hide().fadeIn('slow').insertAfter(selector);
+				flag++;
+			}	
+		});
+		if(flag>0)
+		{
+			return 'yes';
+		}
+	}
+
+	function ajax_insert(fd,submission,md,dt)
+	{
+	  var len = arguments.length;
+	  var form_data = new FormData(fd);
+	  $.ajax({
+	      url:submission,
+	      type:'POST',
+	      processData:false,
+	      contentType: false,
+	      async:false,
+	      data:form_data,
+	      success:function(msg)
+	      {
+	      	var res = $.parseJSON(msg);
+	      	// $('#my_csrf').val(res[0]);
+	      	if(res[1]=='success')
+	      	{
+	      		if(md!=0)
+		      	{
+		      		$(md).modal('toggle');	
+		      	}
+		      	if(dt!=0)
+		      	{
+		      		$(dt).DataTable().ajax.reload();
+		      	}
+
+		      	if(window.location.toString().includes("support"))
+		      	{
+		      		show_notification('success','We will contact you soon');
+		      	}else
+		      	{
+		      		show_notification('success',' Added successfully');
+		      	}
+
+	      		fd.reset();
+	      		return false;
+	      	}
+	      	if(res[1]=='error')
+	      	{
+	      		show_notification('error',' Unexpected Error Try again');
+	      		$('#btn-next').fadeOut('slow');
+	      		return false;
+	      	}
+	      	show_notification('warning', res[1]);
+	      	// $('#btn-next').fadeOut('slow');
+      	  }
+	  });
+	}
+		
+
 	function ajax_delete(unique_id,submission,dt)
 	{
 		var len = arguments.length;
@@ -810,6 +879,36 @@
 	       		$body.removeClass("loading");
 	       }
 	    });
+
+
+		$(document).on('change','.from-year-filter-main',function(e){
+			let yf=1;
+			let tvl= parseInt($(this).val());
+
+			let arr = [];
+			$('.from-year-filter-main > option').each(function() {
+				let v = parseInt($(this).val());
+				if(v>=tvl)
+				{
+					arr.push(v);
+				}
+			});
+			var drop_html = '<option></option>';
+			$.each(arr, function( index, value ) {
+			   drop_html +='<option value="'+value+'">'+value+'</option>';
+			});
+			$('.to-year-filter-main').html("");
+			$('.to-year-filter-main').html(drop_html);
+		});
+
+		$(document).on('change','.to-year-filter-main',function(e){
+			let yf=1;
+			$(this).hasClass('top-yf');
+			if($(this).hasClass('top-yf'))
+			{
+				yf=1;
+			}
+		});
 
 	});
 

@@ -21,6 +21,7 @@
                   <div class="sptb">
                      <div class="tab-content">
                         <div class="tab-pane active" id="tab-11">
+                            {!! $cars_list !!}
                         </div>
                         <div class="row d-none" id="no-results-found">
                            <div class="col-12 text-center">
@@ -50,4 +51,8 @@
    </div>
 </section>
 <input type="hidden" id="hidden-val">
+@endsection
+@section('customjs')
+<!-- Custom js-->
+<script src="{{ url('frontend/custom_js/members.js')}}"></script>
 @endsection

@@ -19,6 +19,11 @@ class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
+    //hardcoded oman country code
+    protected $countryMobileCode = "+968";
+    protected $dvtype = "web";
+    protected $checkCurrency = "&nbsp;OMR&nbsp;";
+    protected $slang = "en";
 
     public function file_icon($file_path,$size='lg')
     {
@@ -82,7 +87,7 @@ class Controller extends BaseController
     //     $transaction_id = $this->generateTransactionIds();
     //     if($transaction_id!='error')
     //     {
-              
+
     //         $table_affected = 'members';
     //         $record_id      = 1;
     //         $action= 'deleted';
@@ -104,7 +109,7 @@ class Controller extends BaseController
     //             'created_at'=>$created_at,
     //             'updated_at'=>$updated_at
     //         ]);
-            
+
     //     }
     // }
 

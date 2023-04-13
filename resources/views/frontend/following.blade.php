@@ -13,8 +13,48 @@
 </section>
 <section class="sptb mt-0 pt-2 watchlist">
    <div class="container">
-      <div class="row">
-      </div>
+    <div class="row">
+        <?php foreach($following as $fl):?>
+                <?php
+
+
+                    $following_name = $fl->memberFollowing ? $fl->memberFollowing->member_name : "";
+                    $follower_image = $fl->memberFollowing ? $fl->memberFollowing->profile_image : "" ;
+                    $follower_id = $fl->following_id ;
+
+                    $profile_image= url('frontend/images/svgs/user.svg');
+
+                if(is_file('./member_profile_images/'.$follower_image))
+                {
+                    $profile_image = url('member_profile_images/'.$follower_image);
+                }
+                ?>
+                <div class="col-lg-3 col-md-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="wideget-user">
+                                <div class="row">
+                                    <div class="col-lg-12 col-md-12">
+                                        <a href="<?=route('car.members', $follower_id);?>">
+                                            <div class="wideget-user-desc">
+                                                <div class="wideget-user-img">
+                                                    <img class="" src="<?=$profile_image;?>" alt="img" style="min-height:100px;max-height:100px;">
+                                                </div>
+                                                <div class="user-wrap">
+                                                    <h4><?=$following_name;?></h4>
+                                                    <!-- <h6 class="text-muted mb-3">Member Since: November 2019</h6> -->
+                                                    <a href="#" class="btn btn-danger btn-sm btn-follow-unfollow" data-id="<?=$fl->following_id;?>"><i class="fa fa-minus"></i> {UnFollow}</a>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        <?php endforeach;?>
+    </div>
    </div>
 </section>
 <!-- EDIT Modal -->
@@ -178,7 +218,7 @@
                   <div class="row">
                      <div class="col-md-12">
                         <p id="multi-img-msg" class="text-info text-center d-none">
-                           Please click on an image to make it you cover image, otherwise the first image will be considered as cover image <i class="fas fa-hand-point-up"></i> 
+                           Please click on an image to make it you cover image, otherwise the first image will be considered as cover image <i class="fas fa-hand-point-up"></i>
                         </p>
                      </div>
                   </div>
@@ -352,7 +392,7 @@
                   <div class="row">
                      <div class="col-md-12">
                         <p id="multi-img-msg" class="text-info text-center d-none">
-                           Please click on an image to make it you cover image, otherwise the first image will be considered as cover image <i class="fas fa-hand-point-up"></i> 
+                           Please click on an image to make it you cover image, otherwise the first image will be considered as cover image <i class="fas fa-hand-point-up"></i>
                         </p>
                      </div>
                   </div>

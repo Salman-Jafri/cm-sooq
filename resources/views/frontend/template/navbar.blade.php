@@ -84,10 +84,10 @@
 
                             <p class="text-danger text-left mt-1 pb-0 mb-0 pl-2">Welcome <?= Auth::user()->member_name;?></p>
                             <li aria-haspopup="true"><a href="">My Ads</a></li>
-                            <li aria-haspopup="true"><a href="">Watchlist</a></li>
+                            <li aria-haspopup="true"><a href="{{route("member.wishlist")}}">Watchlist</a></li>
                             <!--<li aria-haspopup="true"><a href="javascript:void(0);">My Purchases</a></li>-->
-                            <li aria-haspopup="true"><a href="">Following</a></li>
-                            <li aria-haspopup="true"><a href="">Followers</a></li>
+                            <li aria-haspopup="true"><a href="{{route('member.following')}}">Following</a></li>
+                            <li aria-haspopup="true"><a href="{{route('member.follower')}}">Followers</a></li>
                             <li aria-haspopup="true"><a href="{{url('profile')}}">My Profile</a></li>
                             <li aria-haspopup="true"><a href="">My Office</a></li>
                             <li aria-haspopup="true"><a href="{{route("member.logout")}}" onclick="event.preventDefault();

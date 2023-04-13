@@ -13,13 +13,13 @@
           <!-- Carousel -->
           <div class="owl-carousel slide-owl-carousel slider">
             <div class="item">
-              <img alt="first slide" src="https://dev.cars-importers.com/slider_images/7876220220084743.jpeg" class="slideimage1">
+              <img alt="first slide" src="http://phplaravel-740076-3229977.cloudwaysapps.com/all_images/slider_mobile/6310220220084748_1679393448.jpg" class="slideimage1">
             </div>
             <div class="item">
-              <img alt="first slide" src="https://dev.cars-importers.com/slider_images/7876220220084743.jpeg" class="slideimage1">
+              <img alt="first slide" src="http://phplaravel-740076-3229977.cloudwaysapps.com/all_images/slider_mobile/6310220220084748_1679393448.jpg" class="slideimage1">
             </div>
             <div class="item">
-              <img alt="first slide" src="https://dev.cars-importers.com/slider_images/7876220220084743.jpeg" class="slideimage1">
+              <img alt="first slide" src="http://phplaravel-740076-3229977.cloudwaysapps.com/all_images/slider_mobile/6310220220084748_1679393448.jpg" class="slideimage1">
             </div>
           </div>
           <div class="header-text slide-header-text pt-0 mt-0 mb-0 container">
@@ -41,19 +41,22 @@
                         <div class="form row no-gutters">
                           <div class="form-group col-lg-3 col-md-6 col-sm-6 mb-0">
                             <select class="form-control select2-show-search-make border-bottom-0 border-left-0 w-100" data-placeholder="Select" name="search_make" id="make-id" required>
-                              <option value="" selected></option>
-                              <option value="all" style="background-color:#f0eef7!important;">All</option>
-                              <option>Choose Make</option>
-                              <option value="1">Champlain</option>
-                              <option value="2">Caledonia</option>
-                              <option value="3">Chittenden</option>
-                              <option value="4">Shelburne</option>
-                              <option value="5">Mercedes-Gainsboro</option>
-                              <option value="6">Bennington</option>
-                              <option value="7">Sangria Cerise</option>
-                              <option value="8">Wisteria</option>
-                              <option value="9">Monastery</option>
-                              <option value="10">Sherbrooke</option>
+                                <option value="" selected></option>
+                                <option value="all" style="background-color:#f0eef7!important;">Show All</option>
+                                <?php
+                                    $arr_en = array('9','8','7','6','5','4','3','2','1','0');
+                                    $arr_ar = array('٩','٨','٧','٦','٥','٤','٣','٢','١','٠');
+                                ?>
+                                <?php foreach($brand_slider as $cmke):?>
+                                    <?php
+                                        $make_title= $cmke->make;
+
+                                        $make_count= $cmke->mcount;
+                                    ?>
+                                    <option value="<?=$cmke->make_id;?>">
+                                        <?=$make_title.' ('.$make_count.')';?>
+                                    </option>
+                                <?php endforeach;?>
                             </select>
                           </div>
                           <div class="form-group col-lg-3 col-md-6 col-sm-6 mb-0">
@@ -62,25 +65,15 @@
                             </select>
                           </div>
                           <div class="form-group col-lg-2 col-md-6 col-sm-6 mb-0">
-                            <select class="form-control select2-show-search-yf border-bottom-0 border-left-0 w-100" data-placeholder="Select" name="search_year_from" id="search-year-from">
-                              <option></option>
-                              <option>Seating</option>
-                              <option value="5">5</option>
-                              <option value="6">6</option>
-                              <option value="7">7</option>
-                              <option value="8">8</option>
-                              <option value="9">9</option>
+                            <select class="form-control select2-show-search-yf border-bottom-0 border-left-0 w-100 from-year-filter-main" data-placeholder="Select" name="search_year_from" id="search-year-from">
+                                <option></option>
+                                <?= hlp_gen_years(1990,true,1);?>
                             </select>
                           </div>
                           <div class="form-group col-lg-2 col-md-6 col-sm-6 mb-0">
-                            <select class="form-control select2-show-search-yt border-bottom-0 border-left-0 w-100" data-placeholder="Slect" name="search_year_to" id="search-year-to">
-                              <option></option>
-                              <option>Seating</option>
-                              <option value="5">5</option>
-                              <option value="6">6</option>
-                              <option value="7">7</option>
-                              <option value="8">8</option>
-                              <option value="9">9</option>
+                            <select class="form-control select2-show-search-yt border-bottom-0 border-left-0 w-100 to-year-filter-main" data-placeholder="Slect" name="search_year_to" id="search-year-to">
+                                <option></option>
+                                <?= hlp_gen_years(1990,true,1);?>
                             </select>
                           </div>
                           <div class="col-lg-2 col-md-12 col-sm-6 mb-0">
@@ -104,23 +97,46 @@
     <section class="categories pb-2 mb-3 brand-logo-mtop">
       <div class="container main-container-wd">
         <div id="small-categories" class="owl-carousel owl-carousel-col-5">
-          <div class="item">
-            <div class="card mb-0">
-              <div class="card-body">
-                <div class="cat-item text-center">
-                  <a href="#"></a>
-                  <div class="mx-auto">
-                    <center>
-                    <img src="https://dev.cars-importers.com/make_logos/make_logo_447983_034911_21022022.png" alt="img" style="width:100px !important;height:80px !important;">
-                  </center>
-                  </div>
-                  <div class="cat-desc">
-                    <h5 class="mb-1" >TOYOTA<br><span class="smallspan">(104)</span></h5>
-                  </div>
+            @if(count($brand_slider)>0)
+                @foreach($brand_slider as $bs)
+
+                @php
+                    $make_logo = $bs->make_logo;
+                    $make_title = $bs->make;
+                    $make_title_en =  $bs->make;
+                    $make_count = $bs->mcount;
+                    // if(is_file('./make_logos/'.$make_logo))
+                    // {
+                    // 	$makee_logo = base_url('make_logos/'.$make_logo);
+                    // }
+                    // else
+                    // {
+                    // 	$makee_logo = create_txtToimg($make_title_en,'./make_logos/');
+                    // 	if(is_file('./make_logos/'.$make_logo))
+                    // 	{
+                    // 		$makee_logo = base_url('make_logos/'.$make_logo);
+                    // 	}
+                    // }
+                @endphp
+                <div class="item">
+                    <div class="card mb-0">
+                        <div class="card-body">
+                            <div class="cat-item text-center">
+                                <a href="<?=route('car.list-make',$bs->make_id);?>"></a>
+                                <div class="">
+                                    <img src="<?=url('all_images/make_logos/'.$make_logo);?>" alt="img" class="mx-auto" height="80">
+                                </div>
+                                <div class="cat-desc">
+                                    <h5 class="mb-1"><?=$make_title;?></h5>
+                                    (<?=$make_count;?>)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-              </div>
-            </div>
-          </div>
+
+                @endforeach
+            @endif
         </div>
         <h4 class="text-center">
           <a href="#" class="btn">View All</a>
@@ -129,256 +145,37 @@
     </section>
     <!--Section-->
     <!--Section-->
-    <section class="sptb bg-white" id="mainpage-inner-one">
-      <div class="container latest-cars-wd">
-        <div class="section-title center-block text-center">
-          <h2>Newest Car</h2>
-          <!-- <p>Mauris ut cursus nunc. Morbi eleifend, ligula at consectetur vehicula</p> -->
+@if(count($latest_cars)>0):
+    <section class="sptb bg-white mt-0 pt-2 pb-0" style="margin-top:10px;">
+        <div class="container latest-cars-wd">
+            <div class="center-block text-center mt-0 pt-0">
+                <h2><?=$homelt_main_text;?></h2>
+                <p><?=$homelt_sub_text;?></p>
+            </div>
+
+            <div id="load_data" class="row"></div>
+            <div id="load_data_message"></div>
+
         </div>
-        <!-- <div id="myCarousel1" class="owl-carousel owl-carousel-icons2"> -->
-        <div class="row">
-          <div class="col-lg-3 col-md-4 col-xl-3 col-sm-12 col-xs-6">
-            <div class="item">
-              <div class="card mb-0">
-                <div class="card-body pb-0">
-                  <div class="arrow-ribbon bg-primary">2,550 OMR</div>
-                  <div class="custom-section-one">
-                    <img src="https://dev-sooq-cars.com/member_profile_images/115-547621_110013_22022022.jpeg" alt="img" class="cover-image">
-                  </div>
-                  <div class="item-card2">
-                    <div class="item-card2-desc">
-                      <div class="item-card2-text">
-                        <div class="small-one">
-                          <p class="">Union <a href="#" class="image-prop1">
-                              <img src="https://dev-sooq-cars.com/member_profile_images/115-547621_110013_22022022.jpeg" class="image-prop1">
-                            </a>
-                          </p>
-                        </div>
-                        <div class="small-two">
-                          <p class="span-price">
-                            <span>19,000</span>
-                          </p>
-                          <p>
-                            <span class="days-span">+14 days</span>
-                            <a href="javascript:void(0);" class="btn-wishlist">
-                              <i class="far fa-heart  mt-1"></i>
-                            </a>
-                          </p>
-                        </div>
-                        <div class="small-three">
-                          <p class="">
-                            <span class="whatsapp-span1 text-success">
-                              <i class="fab fa-whatsapp"></i> Whatsapp </span>
-                            <span class="call-span1">
-                              <i class="fas fa-phone"></i> Call </span>
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="card-footer">
-                <a href="#" class="mr-3" data-toggle="tooltip" data-placement="bottom" data-original-title="Automatic">
-                  <i class="fa fa-car text-muted"></i>
-                  <span class="text-muted">Auto</span>
-                </a>
-                <a href="#" class="mr-3" data-toggle="tooltip" data-placement="bottom" data-original-title="2300 Kilometrs">
-                  <i class="fa fa-road text-muted"></i>
-                  <span class="text-muted">2300</span>
-                </a>
-                <a href="#" class="" data-toggle="tooltip" data-placement="bottom" data-original-title="FuelType">
-                  <i class="fa fa-tachometer text-muted"></i>
-                  <span class="text-muted">Petrol</span>
-                </a>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-3 col-md-4 col-xl-3 col-sm-12 col-xs-6">
-            <div class="item">
-              <div class="card mb-0">
-                <div class="card-body pb-0">
-                  <div class="arrow-ribbon bg-primary">2,550 OMR</div>
-                  <div class="custom-section-one">
-                    <img src="https://dev-sooq-cars.com/member_profile_images/115-547621_110013_22022022.jpeg" alt="img" class="cover-image">
-                  </div>
-                  <div class="item-card2">
-                    <div class="item-card2-desc">
-                      <div class="item-card2-text">
-                        <div class="small-one">
-                          <p class="">Union <a href="#" class="image-prop1">
-                              <img src="https://dev-sooq-cars.com/member_profile_images/115-547621_110013_22022022.jpeg" class="image-prop1">
-                            </a>
-                          </p>
-                        </div>
-                        <div class="small-two">
-                          <p class="span-price">
-                            <span>19,000</span>
-                          </p>
-                          <p>
-                            <span class="days-span">+14 days</span>
-                            <a href="javascript:void(0);" class="btn-wishlist">
-                              <i class="far fa-heart  mt-1"></i>
-                            </a>
-                          </p>
-                        </div>
-                        <div class="small-three">
-                          <p class="">
-                            <span class="whatsapp-span1 text-success">
-                              <i class="fab fa-whatsapp"></i> Whatsapp </span>
-                            <span class="call-span1">
-                              <i class="fas fa-phone"></i> Call </span>
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="card-footer">
-                <a href="#" class="mr-3" data-toggle="tooltip" data-placement="bottom" data-original-title="Automatic">
-                  <i class="fa fa-car text-muted"></i>
-                  <span class="text-muted">Auto</span>
-                </a>
-                <a href="#" class="mr-3" data-toggle="tooltip" data-placement="bottom" data-original-title="2300 Kilometrs">
-                  <i class="fa fa-road text-muted"></i>
-                  <span class="text-muted">2300</span>
-                </a>
-                <a href="#" class="" data-toggle="tooltip" data-placement="bottom" data-original-title="FuelType">
-                  <i class="fa fa-tachometer text-muted"></i>
-                  <span class="text-muted">Petrol</span>
-                </a>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-3 col-md-4 col-xl-3 col-sm-12 col-xs-6">
-            <div class="item">
-              <div class="card mb-0">
-                <div class="card-body pr-0 pl-0 pt-0">
-                  <div class="arrow-ribbon bg-primary">2,550 OMR</div>
-                  <div class="custom-section-one">
-                    <img src="https://dev-sooq-cars.com/member_profile_images/115-547621_110013_22022022.jpeg" alt="img" class="cover-image">
-                  </div>
-                  <div class="item-card2">
-                    <div class="item-card2-desc">
-                      <div class="item-card2-text">
-                        <div class="small-one">
-                          <p class="">Union <a href="#" class="image-prop1">
-                              <img src="https://dev-sooq-cars.com/member_profile_images/115-547621_110013_22022022.jpeg" class="image-prop1">
-                            </a>
-                          </p>
-                        </div>
-                        <div class="small-two">
-                          <p class="span-price">
-                            <span>19,000</span>
-                          </p>
-                          <p>
-                            <span class="days-span">+14 days</span>
-                            <a href="javascript:void(0);" class="btn-wishlist">
-                              <i class="far fa-heart  mt-1"></i>
-                            </a>
-                          </p>
-                        </div>
-                        <div class="small-three">
-                          <p class="">
-                            <span class="whatsapp-span1 text-success">
-                              <i class="fab fa-whatsapp"></i> Whatsapp </span>
-                            <span class="call-span1">
-                              <i class="fas fa-phone"></i> Call </span>
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="card-footer">
-                <a href="#" class="mr-3" data-toggle="tooltip" data-placement="bottom" data-original-title="Automatic">
-                  <i class="fa fa-car text-muted"></i>
-                  <span class="text-muted">Auto</span>
-                </a>
-                <a href="#" class="mr-3" data-toggle="tooltip" data-placement="bottom" data-original-title="2300 Kilometrs">
-                  <i class="fa fa-road text-muted"></i>
-                  <span class="text-muted">2300</span>
-                </a>
-                <a href="#" class="" data-toggle="tooltip" data-placement="bottom" data-original-title="FuelType">
-                  <i class="fa fa-tachometer text-muted"></i>
-                  <span class="text-muted">Petrol</span>
-                </a>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-3 col-md-4 col-xl-3 col-sm-12 col-xs-6">
-            <div class="item">
-              <div class="card mb-0">
-                <div class="card-body pb-0">
-                  <div class="arrow-ribbon bg-primary">2,550 OMR</div>
-                  <div class="custom-section-one">
-                    <img src="https://dev-sooq-cars.com/member_profile_images/115-547621_110013_22022022.jpeg" alt="img" class="cover-image">
-                  </div>
-                  <div class="item-card2">
-                    <div class="item-card2-desc">
-                      <div class="item-card2-text">
-                        <div class="small-one">
-                          <p class="">Union <a href="#" class="image-prop1">
-                              <img src="https://dev-sooq-cars.com/member_profile_images/115-547621_110013_22022022.jpeg" class="image-prop1">
-                            </a>
-                          </p>
-                        </div>
-                        <div class="small-two">
-                          <p class="span-price">
-                            <span>19,000</span>
-                          </p>
-                          <p>
-                            <span class="days-span">+14 days</span>
-                            <a href="javascript:void(0);" class="btn-wishlist">
-                              <i class="far fa-heart  mt-1"></i>
-                            </a>
-                          </p>
-                        </div>
-                        <div class="small-three">
-                          <p class="">
-                            <span class="whatsapp-span1 text-success">
-                              <i class="fab fa-whatsapp"></i> Whatsapp </span>
-                            <span class="call-span1">
-                              <i class="fas fa-phone"></i> Call </span>
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="card-footer">
-                <a href="#" class="mr-3" data-toggle="tooltip" data-placement="bottom" data-original-title="Automatic">
-                  <i class="fa fa-car text-muted"></i>
-                  <span class="text-muted">Auto</span>
-                </a>
-                <a href="#" class="mr-3" data-toggle="tooltip" data-placement="bottom" data-original-title="2300 Kilometrs">
-                  <i class="fa fa-road text-muted"></i>
-                  <span class="text-muted">2300</span>
-                </a>
-                <a href="#" class="" data-toggle="tooltip" data-placement="bottom" data-original-title="FuelType">
-                  <i class="fa fa-tachometer text-muted"></i>
-                  <span class="text-muted">Petrol</span>
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- <div class="item"><div class="card mb-0"><div class="power-ribbon power-ribbon-top-left text-warning"><span class="bg-warning"><i class="fa fa-bolt"></i></span></div><div class="item-card2-img"><a class="link" href="cars.html"></a><img src="{{ url('frontend/images/media/others/v5.jpg') }}" alt="img" class="cover-image"><div class="item-tag-overlaytext"><span class="text-white bg-success"> New</span><span class="text-white bg-danger"> Rent</span></div><div class="item-card2-icons"><a href="cars.html" class="item-card2-icons-l bg-primary"><i class="car car-honda"></i></a><a href="#" class="item-card2-icons-r wishlist active"><i class="fa fa fa-heart-o"></i></a></div></div><div class="card-body pb-0"><div class="item-card2"><div class="item-card2-desc"><div class="item-card2-text"><a href="cars.html" class="text-dark"><h4 class="mb-0">Union</h4></a></div><div class="d-flex"><a href=""><p class="pb-0 pt-0 mb-2 mt-2"><i class="fa fa-map-marker text-danger mr-2"></i>Florida, USA</p></a><span class="ml-3 pb-0 pt-0 mb-2 mt-2 font-weight-bold">$789.00</span></div><p class="">Lorem Ipsum available, quis int nostrum exercitationem </p></div></div><div class="item-card2-footer mt-4 mb-4"><div class="item-card2-footer-u"><div class="d-md-flex"><span class="review_score mr-2 badge badge-primary">4.0/5</span><div class="rating-stars d-inline-flex ml-auto"><input type="number" readonly="readonly" class="rating-value star" name="rating-stars-value" value="3"><div class="rating-stars-container"><div class="rating-star sm is--active"><i class="fa fa-star"></i></div><div class="rating-star sm is--active"><i class="fa fa-star"></i></div><div class="rating-star sm is--active"><i class="fa fa-star"></i></div><div class="rating-star sm"><i class="fa fa-star"></i></div><div class="rating-star sm"><i class="fa fa-star"></i></div></div> (5 Reviews)
-											</div></div></div></div></div><div class="card-footer"><a href="#" class="mr-3" data-toggle="tooltip" data-placement="bottom" data-original-title="Automatic"><i class="fa fa-car text-muted"></i><span class="text-default">Auto</span></a><a href="#" class="mr-3" data-toggle="tooltip" data-placement="bottom" data-original-title="2300 Kilometrs"><i class="fa fa-road text-muted"></i><span class="text-default">2300</span></a><a href="#" class="" data-toggle="tooltip" data-placement="bottom" data-original-title="FuelType"><i class="fa fa-tachometer text-muted"></i><span class="text-default">Petrol</span></a></div></div></div><div class="item"><div class="card mb-0"><div class="power-ribbon power-ribbon-top-left text-warning"><span class="bg-warning"><i class="fa fa-bolt"></i></span></div><div class="item-card2-img"><a class="link" href="cars.html"></a><img src="{{ url('frontend/images/media/others/dummy.jpg') }}" alt="img" class="cover-image"><div class="item-tag-overlaytext"><span class="text-white bg-gray"> Used</span></div><div class="item-card2-icons"><a href="#" class="item-card2-icons-l bg-primary"><i class="car car-toyota"></i></a><a href="#" class="item-card2-icons-r wishlist active"><i class="fa fa fa-heart"></i></a></div></div><div class="card-body pb-0"><div class="item-card2"><div class="item-card2-desc"><div class="item-card2-text"><a href="cars.html" class="text-dark"><h4 class="mb-0">Lioness</h4></a></div><div class="d-flex pb-0 pt-0"><a href=""><p class="pb-0 pt-0 mb-2 mt-2"><i class="fa fa-map-marker text-danger mr-2"></i>Florida, Uk</p></a><span class="ml-3 pb-0 pt-0 mb-2 mt-2 font-weight-bold">$200.00</span></div><p class="">Lorem Ipsum available, quis int nostrum exercitationem </p></div></div><div class="item-card2-footer mt-4 mb-4"><div class="item-card2-footer-u"><div class="d-md-flex"><span class="review_score mr-2 badge badge-primary">4.0/5</span><div class="rating-stars d-inline-flex ml-auto"><input type="number" readonly="readonly" class="rating-value star" name="rating-stars-value" value="3"><div class="rating-stars-container"><div class="rating-star sm is--active"><i class="fa fa-star"></i></div><div class="rating-star sm is--active"><i class="fa fa-star"></i></div><div class="rating-star sm is--active"><i class="fa fa-star"></i></div><div class="rating-star sm"><i class="fa fa-star"></i></div><div class="rating-star sm"><i class="fa fa-star"></i></div></div> (5 Reviews)
-											</div></div></div></div></div><div class="card-footer"><a href="#" class="mr-2" data-toggle="tooltip" data-placement="bottom" data-original-title="Manual"><i class="fa fa-car text-muted"></i><span class="text-default">Manual</span></a><a href="#" class="mr-2" data-toggle="tooltip" data-placement="bottom" data-original-title="2300 Kilometrs"><i class="fa fa-road text-muted"></i><span class="text-default">3000</span></a><a href="#" class="" data-toggle="tooltip" data-placement="bottom" data-original-title="FuelType"><i class="fa fa-tachometer text-muted"></i><span class="text-default">Petrol</span></a></div></div></div><div class="item"><div class="card mb-0"><div class="item-card2-img"><a class="link" href="cars.html"></a><img src="{{ url('frontend/images/media/others/b1.jpg') }}" alt="img" class="cover-image"><div class="item-tag-overlaytext"><span class="text-white bg-success"> New</span></div><div class="item-card2-icons"><a href="#" class="item-card2-icons-l bg-primary"><i class="car car-volkswagen"></i></a><a href="#" class="item-card2-icons-r wishlist active"><i class="fa fa fa-heart"></i></a></div></div><div class="card-body pb-0"><div class="item-card2"><div class="item-card2-desc"><div class="item-card2-text"><a href="cars.html" class="text-dark"><h4 class="mb-0">Millenium</h4></a></div><div class="d-flex pb-0 pt-0"><a href=""><p class="pb-0 pt-0 mb-2 mt-2"><i class="fa fa-map-marker text-danger mr-2"></i>Florida, Uk</p></a><span class="ml-3 pb-0 pt-0 mb-2 mt-2 font-weight-bold">$200.00</span></div><p class="">Lorem Ipsum available, quis int nostrum exercitationem </p></div></div><div class="item-card2-footer mt-4 mb-4"><div class="item-card2-footer-u"><div class="d-md-flex"><span class="review_score mr-2 badge badge-primary">4.0/5</span><div class="rating-stars d-inline-flex ml-auto"><input type="number" readonly="readonly" class="rating-value star" name="rating-stars-value" value="3"><div class="rating-stars-container"><div class="rating-star sm is--active"><i class="fa fa-star"></i></div><div class="rating-star sm is--active"><i class="fa fa-star"></i></div><div class="rating-star sm is--active"><i class="fa fa-star"></i></div><div class="rating-star sm"><i class="fa fa-star"></i></div><div class="rating-star sm"><i class="fa fa-star"></i></div></div> (5 Reviews)
-											</div></div></div></div></div><div class="card-footer"><a href="#" class="mr-3" data-toggle="tooltip" data-placement="bottom" data-original-title="Automatic"><i class="fa fa-car text-muted"></i><span class="text-default">Auto</span></a><a href="#" class="mr-3" data-toggle="tooltip" data-placement="bottom" data-original-title="2300 Kilometrs"><i class="fa fa-road text-muted"></i><span class="text-default">4000</span></a><a href="#" class="" data-toggle="tooltip" data-placement="bottom" data-original-title="FuelType"><i class="fa fa-tachometer text-muted"></i><span class="text-default">Petrol</span></a></div></div></div><div class="item"><div class="card mb-0 sold-out"><div class="ribbon ribbon-top-left text-danger"><span class="bg-danger">sold out</span></div><div class="item-card2-img"><a class="link" href="cars.html"></a><img src="{{ url('frontend/images/media/others/v1.jpg') }}" alt="img" class="cover-image"><div class="item-tag-overlaytext"><span class="text-white bg-success"> New</span></div><div class="item-card2-icons"><a href="#" class="item-card2-icons-l bg-primary"><i class="car car-ferrari"></i></a><a href="#" class="item-card2-icons-r wishlist"><i class="fa fa fa-heart-o"></i></a></div></div><div class="card-body pb-0"><div class="item-card2"><div class="item-card2-desc"><div class="item-card2-text"><a href="cars.html" class="text-dark"><h4 class="mb-0">Roamer</h4></a></div><div class="d-flex pb-0 pt-0"><a href=""><p class="pb-0 pt-0 mb-2 mt-2"><i class="fa fa-map-marker text-danger mr-2"></i>Florida, Uk</p></a><span class="ml-3 pb-0 pt-0 mb-2 mt-2 font-weight-bold">$200.00</span></div><p class="">Lorem Ipsum available, quis int nostrum exercitationem </p></div></div><div class="item-card2-footer mt-4 mb-4"><div class="item-card2-footer-u"><div class="d-md-flex"><span class="review_score mr-2 badge badge-primary">4.0/5</span><div class="rating-stars d-inline-flex ml-auto"><input type="number" readonly="readonly" class="rating-value star" name="rating-stars-value" value="3"><div class="rating-stars-container"><div class="rating-star sm is--active"><i class="fa fa-star"></i></div><div class="rating-star sm is--active"><i class="fa fa-star"></i></div><div class="rating-star sm is--active"><i class="fa fa-star"></i></div><div class="rating-star sm"><i class="fa fa-star"></i></div><div class="rating-star sm"><i class="fa fa-star"></i></div></div> (5 Reviews)
-											</div></div></div></div></div><div class="card-footer"><a href="#" class="mr-2" data-toggle="tooltip" data-placement="bottom" data-original-title="Manual"><i class="fa fa-car text-muted"></i><span class="text-default">Manual</span></a><a href="#" class="mr-2" data-toggle="tooltip" data-placement="bottom" data-original-title="2300 Kilometrs"><i class="fa fa-road text-muted"></i><span class="text-default">2000</span></a><a href="#" class="" data-toggle="tooltip" data-placement="bottom" data-original-title="FuelType"><i class="fa fa-tachometer text-muted"></i><span class="text-default">Petrol</span></a></div></div></div><div class="item"><div class="card mb-0"><div class="power-ribbon power-ribbon-top-left text-warning"><span class="bg-warning"><i class="fa fa-bolt"></i></span></div><div class="item-card2-img"><a class="link" href="cars.html"></a><img src="{{ url('frontend/images/media/others/f3.jpg') }}" alt="img" class="cover-image"><div class="item-tag-overlaytext"><span class="text-white bg-success"> New</span></div><div class="item-card2-icons"><a href="#" class="item-card2-icons-l bg-primary"><i class="car car-honda"></i></a><a href="#" class="item-card2-icons-r wishlist active"><i class="fa fa fa-heart-o"></i></a></div></div><div class="card-body pb-0"><div class="item-card2"><div class="item-card2-desc"><div class="item-card2-text"><a href="cars.html" class="text-dark"><h4 class="mb-0">Union</h4></a></div><div class="d-flex pb-0 pt-0"><a href=""><p class="pb-0 pt-0 mb-2 mt-2"><i class="fa fa-map-marker text-danger mr-2"></i>Florida, Uk</p></a><span class="ml-3 pb-0 pt-0 mb-2 mt-2 font-weight-bold">$200.00</span></div><p class="">Lorem Ipsum available, quis int nostrum exercitationem </p></div></div><div class="item-card2-footer mt-4 mb-4"><div class="item-card2-footer-u"><div class="d-md-flex"><span class="review_score mr-2 badge badge-primary">4.0/5</span><div class="rating-stars d-inline-flex ml-auto"><input type="number" readonly="readonly" class="rating-value star" name="rating-stars-value" value="3"><div class="rating-stars-container"><div class="rating-star sm is--active"><i class="fa fa-star"></i></div><div class="rating-star sm is--active"><i class="fa fa-star"></i></div><div class="rating-star sm is--active"><i class="fa fa-star"></i></div><div class="rating-star sm"><i class="fa fa-star"></i></div><div class="rating-star sm"><i class="fa fa-star"></i></div></div> (5 Reviews)
-											</div></div></div></div></div><div class="card-footer"><a href="#" class="mr-2" data-toggle="tooltip" data-placement="bottom" data-original-title="Manual"><i class="fa fa-car text-muted"></i><span class="text-default">Manual</span></a><a href="#" class="mr-2" data-toggle="tooltip" data-placement="bottom" data-original-title="2300 Kilometrs"><i class="fa fa-road text-muted"></i><span class="text-default">2000</span></a><a href="#" class="" data-toggle="tooltip" data-placement="bottom" data-original-title="FuelType"><i class="fa fa-tachometer text-muted"></i><span class="text-default">Petrol</span></a></div></div></div> -->
-        <!-- </div> -->
-      </div>
-      <div class="center-block text-center">
-        <a href="#" class="page-link btn btn-primary btn-small" id="show_more_btn">Show All <i class="fa fa-chevron-circle-down" aria-hidden="true"></i>
-        </a>
-        <br>
-      </div>
+    <div class="center-block text-center">
+    <!-- 	<ul class="pagination mb-3">
+        <li class="page-item page-prev disabled">
+            <a class="page-link" href="#" tabindex="-1">Prev</a>
+        </li>
+        <li class="page-item active"><a class="page-link" href="#">1</a></li>
+        <li class="page-item"><a class="page-link" href="#">2</a></li>
+        <li class="page-item"><a class="page-link" href="#">3</a></li>
+        <li class="page-item page-next">
+            <a class="page-link" href="#">Next</a>
+        </li>
+    </ul> -->
+    <a href="#" class="page-link btn btn-primary btn-small" id="show_more_btn">Show All <i class="fa fa-chevron-circle-down" aria-hidden="true"></i></a>
+    <br>
+    </div>
     </section>
+@endif
 @endsection
-   
+@section('customjs')
+<!-- Custom js-->
+<script src="{{ url('frontend/custom_js/lazzy-loader.js')}}"></script>
+@endsection

@@ -8,7 +8,7 @@ else
 }
 
 function allvisit()
-{	
+{
 		let val = true;
 		show_loading='no';
 		$.ajax({
@@ -17,10 +17,10 @@ function allvisit()
 			data:{val:val},
 			success:function(msg)
 			{
-				
+
 				var res=$.parseJSON(msg);
 			}
-		});	
+		});
 }
 
 $(window).load(function(){
@@ -52,12 +52,12 @@ $(document).ready(function(e){
 
 $(document).on('click','.allclick',function(){
   allvisit();
-});	
+});
 	// alert(lang);
 
 	$('#merabtn').on('click',function(e){
 		console.log('kia hai');
-	});		
+	});
 	$('.zoomimg').parent().zoom({
 			magnify: 3,
 			target: $('#ifcont').get(0)
@@ -115,7 +115,7 @@ $(document).on('click','.allclick',function(){
 				else if(res[0]=='success')
 				{
 					$('#login-modal').modal('hide');
-					alert('Thank You For Purchasing');	
+					alert('Thank You For Purchasing');
 					$('#btn-buy-car').remove();
 				}
 				else
@@ -187,7 +187,7 @@ $(document).on('click','.allclick',function(){
 	});
 
 
-	
+
 	// $('#btn-login').on('click',funCopction(e){
 	// 	$('#error-msg-div').addClass('d-none');
 	// 	var login_form = $("#login-form")[0];
@@ -211,7 +211,7 @@ $(document).on('click','.allclick',function(){
 	// 	      	 }
 	// 	      	 else if(res[0]=='error')
 	// 	      	 {
-		      	 	
+
 	// 	      	 }
 	// 	      	 else
 	// 	      	 {
@@ -221,7 +221,7 @@ $(document).on('click','.allclick',function(){
 	// 	      	 }
 	//       	  }
 	// 	  	});
-	// 	}	       
+	// 	}
 	// 	else
 	// 	{
 	// 	   login_form.reportValidity()

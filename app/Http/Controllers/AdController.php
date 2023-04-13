@@ -18,7 +18,7 @@ use Illuminate\Http\Request;
 use DB;
 class AdController extends Controller
 {
-    public function show_add_form()
+    public function showAddForm()
     {
         $make = CarsMake::all();
         $exterior_color = CarsExteriorColor::all();
@@ -26,11 +26,19 @@ class AdController extends Controller
         $drive_line = CarsDriveLine::all();
         $odometer = CarsOdometer::all();
 
-        return view("frontend.post_ad", compact("make","exterior_color","interior_color","drive_line","odometer"));
+        $data = [
+            'make'=>$make,
+            'exterior_color'=>$exterior_color,
+            'interior_color'=>$interior_color,
+            'drive_line'=>$drive_line,
+            'odometer'=> $odometer
+        ];
+
+        return view("frontend.post_ad", $data);
     }
 
 
-    public function get_models(Request $request)
+    public function getModels(Request $request)
     {
         if($request->has("make_id"))
         {
@@ -53,13 +61,14 @@ class AdController extends Controller
 
 
 
-    public function post_ad_pro(Request $request)
+    public function postAdPro(Request $request)
     {
         $error_log=array();
         $errors_counter = 0;
         $upload_msg = 0;
 		$trans_smsg = null;
-
+        $car_flag = false;
+        $image_flag = false;
         $posted_data = new Cars;
         $posted_data->expected_arrival_date = date('Y-m-d',strtotime($request->expected_arrival_date));
         $posted_data->cpage = $request->cpage;
@@ -86,6 +95,7 @@ class AdController extends Controller
 
         if($posted_data->save())
         {
+            $car_flag = true;
             if($request->hasFile('car_uploads'))
             {
 
@@ -111,7 +121,7 @@ class AdController extends Controller
                     }
                     $onlyname = pathinfo($originalName, PATHINFO_FILENAME);
                     $onlyext = $file->extension();
-                    $fileName = $onlyname.'_'.time(). '.'.$onlyext;
+                    $fileName = $member_id.rand(1,100).'_'.time(). '.'.$onlyext;
 
                     $is_uploaded = $file->move(public_path('car_uploads'), $fileName);
                     if(!$is_uploaded)
@@ -141,6 +151,7 @@ class AdController extends Controller
                     if($posted_data->save())
                     {
                         $upload_msg++;
+                        $image_flag = true;
                     }
 
                }
@@ -149,11 +160,10 @@ class AdController extends Controller
             }
         }
 
-        if($errors_counter>0)
+        if(($errors_counter > 0) || !$car_flag || !$image_flag)
         {
             $upload_msg =implode('<br>',$error_log);
             $msg = 'error';
-
         }
         else
         {
@@ -165,7 +175,7 @@ class AdController extends Controller
 
     }
 
-    public function get_default_values(Request $request)
+    public function getDefaultValues(Request $request)
     {
         $cylinder =null;
 		$transmission =null;

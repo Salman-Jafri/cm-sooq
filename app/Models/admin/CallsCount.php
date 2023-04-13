@@ -8,6 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class CallsCount extends Model
 {
     use HasFactory;
-    protected $table = ' ac_calls_count';
+    protected $table = 'ac_calls_count';
     protected $primaryKey = 'uid';
 }

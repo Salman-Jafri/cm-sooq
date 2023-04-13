@@ -262,6 +262,7 @@ $(document).ready(function(e){
 					$('#images-holder').html("");
 					// $('#new-modal').modal('hide');
                     $("select").val('').change();
+                    $(".fas.fa-check.text-success").addClass('d-none');
 					if(isNaN(res[2]))
 					{
 						show_notification('warning',res[2]);

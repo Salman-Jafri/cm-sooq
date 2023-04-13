@@ -13,8 +13,9 @@
               <div class="single-page">
                 <div class="col-12 d-block mx-auto">
                   <div class="wrapper wrapper2">
-                    <form id="login-form" class="card-body" tabindex="500">
+                    <form id="login-form" method="POST" action="{{ route('member.modal-auth') }}" class="card-body" tabindex="500">
                       <h3>Login</h3>
+                      @csrf
                       <div class="row d-none" id="error-msg-div">
                         <div class="col-12">
                           <h5 class="badge badge-danger"> Please Rectify Following to Continue </h5>
@@ -31,6 +32,7 @@
                         <input type="password" name="userpass" id="userpass-modal" required>
                         <label>Password</label>
                       </div>
+                      <input type="hidden" name="page_type" value="ajax_login"/>
                       <div class="submit">
                         <button type="button" class="btn btn-primary btn-block" id="btn-login-modal">Login</button>
                       </div>
@@ -210,10 +212,10 @@
     <script src="{{ url('frontend/js/swipe.js') }}"></script>
 
 
-<!-- <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.1/js/jquery.dataTables.js"></script>
-      <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.3/js/dataTables.bootstrap4.min.js"></script>
-      <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js"></script>
-      <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/buttons/2.2.2/js/dataTables.buttons.min.js"></script> -->
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.1/js/jquery.dataTables.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.3/js/dataTables.bootstrap4.min.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/buttons/2.2.2/js/dataTables.buttons.min.js"></script>
 
    <!-- Custom Js-->
   <script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"></script>
@@ -229,6 +231,14 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-zoom/1.7.21/jquery.zoom.js"></script>
 
     <script src="{{ url('frontend/custom_js/main_scripts.js') }}"></script>
-
+    <!-- jquery-validate-->
+    <script src="{{ url('frontend/js/jquery.validate.min.js') }}"></script>
+    <!--link steps form-->
+    <script src="{{ url('frontend/custom_js/jquery.steps.min.js')}}"></script>
+    <script src="{{ url('frontend/custom_js/jquery.steps.js')}}"></script>
   </body>
 </html>
+@php
+//   visits_all();
+//   visits_links();
+@endphp
