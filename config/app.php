@@ -71,6 +71,8 @@ return [
 
     'timezone' => 'Asia/Karachi',
 
+    //salman
+
     /*
     |--------------------------------------------------------------------------
     | Application Locale Configuration

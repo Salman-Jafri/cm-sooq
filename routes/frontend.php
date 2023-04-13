@@ -9,7 +9,7 @@ use App\Http\Controllers\MemberLoginController;
 use App\Http\Controllers\admin\MembersController;
 use App\Http\Controllers\AdController;
 
-
+//salman comment
 
 // website routes starts here
 Route::get('/', [HomeController::class, 'index'])->name("index");
@@ -21,7 +21,7 @@ Route::get('policy', [HomeController::class, 'policy'])->name('policy');
 
 
 // support
-Route::get('support', [SupportController::class, 'support'])->name('support'); 
+Route::get('support', [SupportController::class, 'support'])->name('support');
 Route::post('addSupport',[SupportController::class,'add'])->name('addSupport');
 Route::post('/welcome/get_models', [HomeController::class, 'getModels'])->name('getModels');
 
